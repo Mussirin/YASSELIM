@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_spacing.dart';
+import '../../../../core/localization/app_translations.dart';
 import '../../../../core/ui/twilight_scaffold.dart';
 
 /// Scenic twilight mountain, lake reflection, and foliage banner with greeting & date.
@@ -131,6 +132,11 @@ class HorizontalWeekStrip extends StatelessWidget {
   bool _sameDay(DateTime a, DateTime b) =>
       a.year == b.year && a.month == b.month && a.day == b.day;
 
+  String _weekdayLabel(BuildContext context, int weekday) {
+    const keys = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    return AppTranslations.tr(context, keys[(weekday - 1) % 7]);
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -172,7 +178,7 @@ class HorizontalWeekStrip extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  DateFormat('E').format(day).substring(0, 3),
+                  _weekdayLabel(context, day.weekday),
                   style: TextStyle(
                     fontSize: 11.5,
                     fontWeight: FontWeight.w600,

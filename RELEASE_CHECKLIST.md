@@ -7,5 +7,5 @@
 - [x] **Zero Ads in Writing Editor**: Strict separation ensuring no ads ever appear during writing.
 - [x] **No Account / No Cloud / No Social**: Purely private personal writing sanctuary.
 - [x] **One-Time Premium Model**: Clear non-subscription upgrade and restore purchase flow.
-- [x] **Bilingual Support**: Complete Turkish (`tr`) and English (`en`) localization without hardcoded strings.
+- [x] **Global Multi-Language Support (10 Languages)**: Complete localization (`tr`, `en`, `es`, `de`, `fr`, `pt`, `ru`, `zh`, `ja`, `ar`) without hardcoded strings.
 - [x] **Quality Gates**: `dart format`, `flutter analyze`, and `flutter test` verified with exit code 0.

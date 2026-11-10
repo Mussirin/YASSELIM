@@ -11,6 +11,7 @@ YASSELIM is a calm, private, offline-first personal journal and unsent letters a
 - **Unsent Letters**: A dedicated private space for letters you never intend to send.
 - **Local Search, History & Statistics**: Instant offline search, date filtering (*All, Today, This Week, This Month*), streak counter, character counter, most frequent mood breakdown, and weekly rhythm bar chart.
 - **Privacy & Security**: Encrypted local storage (`EncryptionService`), optional 4-digit PIN App Lock, JSON data export, one-tap full data erasure, and zero cloud/account requirements.
+- **10 Global Languages**: Complete localization and original daily reflection prompts in Turkish (`tr`), English (`en`), Spanish (`es`), German (`de`), French (`fr`), Portuguese (`pt`), Russian (`ru`), Chinese (`zh`), Japanese (`ja`), and Arabic (`ar`).
 - **100% Commercial & Copyright Safe**: All visual illustrations, logos, mood icons, and scenic badges are original procedural Flutter `CustomPainter` vector graphics.
 
 ## Quality Gate Commands

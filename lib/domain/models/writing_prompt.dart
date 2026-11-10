@@ -1,26 +1,28 @@
 import 'package:equatable/equatable.dart';
 
-/// Original bilingual writing prompt for daily reflection.
+/// Original multi-language writing prompt for daily reflection.
 class WritingPrompt extends Equatable {
   final String id;
-  final String textEn;
-  final String textTr;
-  final String categoryEn;
-  final String categoryTr;
+  final Map<String, String> texts;
+  final Map<String, String> categories;
 
   const WritingPrompt({
     required this.id,
-    required this.textEn,
-    required this.textTr,
-    required this.categoryEn,
-    required this.categoryTr,
+    required this.texts,
+    required this.categories,
   });
 
-  String textFor(String languageCode) => languageCode == 'tr' ? textTr : textEn;
+  String get textEn => texts['en'] ?? '';
+  String get textTr => texts['tr'] ?? '';
+  String get categoryEn => categories['en'] ?? '';
+  String get categoryTr => categories['tr'] ?? '';
+
+  String textFor(String languageCode) =>
+      texts[languageCode] ?? texts['en'] ?? '';
 
   String categoryFor(String languageCode) =>
-      languageCode == 'tr' ? categoryTr : categoryEn;
+      categories[languageCode] ?? categories['en'] ?? '';
 
   @override
-  List<Object?> get props => [id, textEn, textTr, categoryEn, categoryTr];
+  List<Object?> get props => [id, texts, categories];
 }

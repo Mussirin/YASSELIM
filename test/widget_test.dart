@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yasselim/core/localization/app_translations.dart';
+import 'package:yasselim/core/localization/locale_cubit.dart';
 import 'package:yasselim/data/repositories/journal_repository.dart';
 import 'package:yasselim/data/security/encryption_service.dart';
 import 'package:yasselim/domain/models/journal_entry.dart';
@@ -64,6 +66,36 @@ void main() {
 
       await repo.deleteAllData();
       expect(repo.loadEntries(), isEmpty);
+    },
+  );
+
+  test(
+    'Multi-language localization resolves all 10 global languages & prompts',
+    () {
+      expect(LocaleCubit.supportedLanguages.length, equals(10));
+      const expectedCodes = [
+        'tr',
+        'en',
+        'es',
+        'de',
+        'fr',
+        'pt',
+        'ru',
+        'zh',
+        'ja',
+        'ar',
+      ];
+      for (final code in expectedCodes) {
+        expect(AppTranslations.byLocale(code, 'start_writing'), isNotEmpty);
+        expect(AppTranslations.byLocale(code, 'nav_settings'), isNotEmpty);
+        for (final prompt in AppTranslations.prompts) {
+          expect(prompt.textFor(code), isNotEmpty);
+          expect(prompt.categoryFor(code), isNotEmpty);
+        }
+      }
+      expect(AppTranslations.byLocale('zh', 'save_btn'), equals('保存'));
+      expect(AppTranslations.byLocale('ja', 'save_btn'), equals('保存'));
+      expect(AppTranslations.byLocale('ru', 'save_btn'), equals('Сохранить'));
     },
   );
 

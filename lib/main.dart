@@ -88,7 +88,7 @@ class _YasselimAppState extends State<YasselimApp> {
                 theme: AppTheme.lightTheme,
                 darkTheme: AppTheme.darkTheme,
                 locale: locale,
-                supportedLocales: const [Locale('tr'), Locale('en')],
+                supportedLocales: LocaleCubit.supportedLocales,
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,

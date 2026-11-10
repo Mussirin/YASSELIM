@@ -15,6 +15,7 @@ import '../../premium/presentation/premium_screen.dart';
 import '../../security/bloc/security_cubit.dart';
 import '../../security/presentation/pin_lock_screen.dart';
 import 'about_yasselim_screen.dart';
+import 'widgets/language_selector_sheet.dart';
 
 /// "Ayarlar" (Settings) screen — strictly no user account/login row (100% offline-first).
 class SettingsScreen extends StatelessWidget {
@@ -65,14 +66,25 @@ class SettingsScreen extends StatelessWidget {
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text(AppTranslations.tr(context, 'settings_language')),
-                  trailing: Text(
-                    locale.languageCode == 'tr' ? 'Türkçe' : 'English',
-                    style: const TextStyle(
-                      color: AppColors.brightLavender,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        LocaleCubit.nativeNameFor(locale.languageCode),
+                        style: const TextStyle(
+                          color: AppColors.brightLavender,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      const Icon(
+                        Icons.expand_more_rounded,
+                        color: AppColors.brightLavender,
+                        size: 20,
+                      ),
+                    ],
                   ),
-                  onTap: () => context.read<LocaleCubit>().toggleLanguage(),
+                  onTap: () => LanguageSelectorSheet.show(context),
                 ),
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,

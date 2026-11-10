@@ -163,47 +163,39 @@ class JournalRepository {
   }
 
   String exportAsBookText({String lang = 'tr'}) {
-    final isTr = lang == 'tr';
+    String t(String key) => AppTranslations.byLocale(lang, key);
     final dateFmt = DateFormat('dd.MM.yyyy • HH:mm');
     final entries = loadEntries();
     final letters = loadLetters();
     final buf = StringBuffer();
 
-    buf.writeln(
-      isTr
-          ? 'YASSELIM — KENDİNE AİT BİR ALAN'
-          : 'YASSELIM — YOUR PRIVATE SPACE',
-    );
-    buf.writeln(
-      '${isTr ? 'Dışa Aktarma Tarihi' : 'Exported On'}: ${dateFmt.format(DateTime.now())}',
-    );
+    buf.writeln(t('export_book_header'));
+    buf.writeln('${t('export_date_label')}: ${dateFmt.format(DateTime.now())}');
     buf.writeln('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     buf.writeln();
 
-    buf.writeln(isTr ? 'BÖLÜM I: GÜNLÜK YAZILARIM' : 'PART I: JOURNAL ENTRIES');
+    buf.writeln(t('export_part_1'));
     buf.writeln();
 
     if (entries.isEmpty) {
-      buf.writeln(
-        isTr ? 'Henüz günlük yazısı bulunmuyor.' : 'No journal entries yet.',
-      );
+      buf.writeln(t('export_empty_entries'));
       buf.writeln();
     } else {
       for (int i = 0; i < entries.length; i++) {
         final e = entries[i];
         buf.writeln('${i + 1}. ${e.title}');
         buf.writeln(
-          '${isTr ? 'Tarih' : 'Date'}: ${dateFmt.format(e.createdAt)}',
+          '${t('export_entry_date')}: ${dateFmt.format(e.createdAt)}',
         );
         if (e.mood != null) {
           final moodLabel = AppTranslations.byLocale(
             lang,
             e.mood!.translationKey,
           );
-          buf.writeln('${isTr ? 'Ruh Hali' : 'Mood'}: $moodLabel');
+          buf.writeln('${t('export_entry_mood')}: $moodLabel');
         }
         if (e.tags.isNotEmpty) {
-          buf.writeln('${isTr ? 'Etiketler' : 'Tags'}: ${e.tags.join(', ')}');
+          buf.writeln('${t('export_entry_tags')}: ${e.tags.join(', ')}');
         }
         buf.writeln();
         buf.writeln(e.content);
@@ -213,26 +205,20 @@ class JournalRepository {
       }
     }
 
-    buf.writeln(
-      isTr ? 'BÖLÜM II: GÖNDERİLMEYECEK MEKTUPLAR' : 'PART II: UNSENT LETTERS',
-    );
+    buf.writeln(t('export_part_2'));
     buf.writeln();
 
     if (letters.isEmpty) {
-      buf.writeln(
-        isTr
-            ? 'Henüz yazılmış mektup bulunmuyor.'
-            : 'No unsent letters written yet.',
-      );
+      buf.writeln(t('export_empty_letters'));
     } else {
       for (int i = 0; i < letters.length; i++) {
         final l = letters[i];
         buf.writeln('${i + 1}. ${l.title}');
         if (l.recipient.isNotEmpty) {
-          buf.writeln('${isTr ? 'Kime' : 'To'}: ${l.recipient}');
+          buf.writeln('${t('export_letter_to')}: ${l.recipient}');
         }
         buf.writeln(
-          '${isTr ? 'Tarih' : 'Date'}: ${dateFmt.format(l.createdAt)}',
+          '${t('export_entry_date')}: ${dateFmt.format(l.createdAt)}',
         );
         buf.writeln();
         buf.writeln(l.content);

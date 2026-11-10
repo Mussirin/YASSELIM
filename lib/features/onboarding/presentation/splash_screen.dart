@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_spacing.dart';
 import '../../../core/localization/app_translations.dart';
+import '../../../core/localization/locale_cubit.dart';
 import '../../../core/theme/app_typography.dart';
 import '../../../core/ui/twilight_scaffold.dart';
 import '../../../core/ui/yasselim_logo.dart';
+import '../../settings/presentation/widgets/language_selector_sheet.dart';
 
 /// Brand welcome & splash screen matching the "YASSELIM — Your Private Space" design.
 class SplashScreen extends StatelessWidget {
@@ -27,6 +30,47 @@ class SplashScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: InkWell(
+                borderRadius: AppSpacing.pillRadius,
+                onTap: () => LanguageSelectorSheet.show(context),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.lavender.withValues(alpha: 0.14),
+                    borderRadius: AppSpacing.pillRadius,
+                    border: Border.all(
+                      color: AppColors.brightLavender.withValues(alpha: 0.4),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.language_rounded,
+                        size: 16,
+                        color: AppColors.brightLavender,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        LocaleCubit.nativeNameFor(
+                          context.watch<LocaleCubit>().state.languageCode,
+                        ),
+                        style: const TextStyle(
+                          color: AppColors.brightLavender,
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             const Spacer(),
             const YasselimLogo(size: 88, showCard: false),
             const SizedBox(height: AppSpacing.lg),
